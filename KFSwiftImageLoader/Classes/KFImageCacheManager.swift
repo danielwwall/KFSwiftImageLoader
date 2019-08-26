@@ -22,13 +22,18 @@ final public class KFImageCacheManager {
     // {"url": {"img": UIImage, "isDownloading": Bool, "observerMapping": {Observer: Int}}}
     fileprivate var imageCache = [String: [String: AnyObject]]()
     
-    internal lazy var session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        configuration.requestCachePolicy = .returnCacheDataElseLoad
-        configuration.urlCache = .shared
-        
-        return URLSession(configuration: configuration)
-    }()
+	public static var sessionConfigurationOverride: URLSessionConfiguration?
+	
+	lazy var session: URLSession = {
+		if let config = KFImageCacheManager.sessionConfigurationOverride {
+			return URLSession(configuration: config)
+		} else {
+			let configuration = URLSessionConfiguration.default
+			configuration.requestCachePolicy = .returnCacheDataElseLoad
+			configuration.urlCache = .shared
+			return URLSession(configuration: configuration)
+		}
+	}()
     
     /**
         Sets the fade duration time (in seconds) for images when they are being loaded into their views.
