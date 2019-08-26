@@ -217,4 +217,15 @@ public extension UIImageView {
             }
         }
     }
+	
+	final func loadImageFromCache(urlString: String) -> Bool {
+		let cacheManager = KFImageCacheManager.sharedInstance
+		
+		if let image = cacheManager[(NSURL(string: urlString)?.absoluteString)!] {
+			self.image = image
+			return true
+		}
+		
+		return false
+	}
 }
