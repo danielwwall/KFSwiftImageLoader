@@ -60,7 +60,7 @@ public extension WKInterfaceImage {
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(urlString: String,
+	@objc final func loadImage(urlString: String,
                      placeholderImageName: String? = nil,
                      shouldUseDeviceCache: Bool = false,
                                completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
@@ -84,7 +84,7 @@ public extension WKInterfaceImage {
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(url: URL,
+	@objc final func loadImage(url: URL,
                placeholderImageName: String? = nil,
                shouldUseDeviceCache: Bool = false,
                          completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
@@ -105,7 +105,7 @@ public extension WKInterfaceImage {
         - parameter shouldUseDeviceCache: `Bool` indicating whether or not to use the  Watch's device cache for dramatically improved performance. This should only be considered for images that are likely to be loaded more than once throughout the lifetime of the app. The default value is `false`.
         - parameter completion: An optional closure that is called to indicate completion of the intended purpose of this method. It returns two values: the first is a `Bool` indicating whether everything was successful, and the second is `NSError?` which will be non-nil should an error occur. The default value is `nil`.
     */
-    final public func loadImage(request: URLRequest,
+	@objc final func loadImage(request: URLRequest,
                    placeholderImageName: String? = nil,
                    shouldUseDeviceCache: Bool = false,
                              completion: ((_ success: Bool, _ error: NSError?) -> Void)? = nil)
@@ -136,7 +136,7 @@ public extension WKInterfaceImage {
         }
         
         // If there's already a cached image, load it into the interface.
-        if let image = cacheManager[urlAbsoluteString], let imageData = UIImagePNGRepresentation(image) {
+        if let image = cacheManager[urlAbsoluteString], let imageData = image.pngData() {
             if shouldUseDeviceCache {
                 storeImageDataInDeviceCache(imageData, forURLAbsoluteString: urlAbsoluteString)
             }

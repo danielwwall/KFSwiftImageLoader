@@ -91,7 +91,7 @@ final public class KFImageCacheManager {
         let diskURLCache = URLCache(memoryCapacity: 0, diskCapacity: 50 * 1024 * 1024, diskPath: nil)
         URLCache.shared = diskURLCache
         
-        NotificationCenter.default.addObserver(forName: .UIApplicationDidReceiveMemoryWarning, object: nil, queue: .main) {
+        NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification, object: nil, queue: .main) {
             _ in
             
             self.imageCache.removeAll(keepingCapacity: false)
@@ -244,7 +244,7 @@ final public class KFImageCacheManager {
                 interfaceImage.setImageNamed(key)
             }
             else {
-                interfaceImage.setImageData(UIImagePNGRepresentation(image))
+                interfaceImage.setImageData(image.pngData())
             }
             
             interfaceImage.completionHolder.completion?(true, nil)
